@@ -12,7 +12,6 @@ This repository provides an implementation and exploration of **Variational Auto
 - [Requirements](#requirements)
 - [Results](#results)
 - [References](#references)
-- [License](#license)
 
 ## Overview
 
