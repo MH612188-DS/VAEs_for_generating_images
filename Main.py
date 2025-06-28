@@ -1,4 +1,4 @@
-1. Importing libraries
+#1. Importing libraries
 import numpy as np
 import matplotlib.pyplot as plt
 
@@ -18,17 +18,17 @@ from tensorflow.keras import (
 from scipy.stats import norm
 from tensorflow.keras import datasets
 
-2. Loading the dataset
+#2. Loading the dataset
 (x_train, y_train), (x_test, y_test) = tf.keras.datasets.mnist.load_data()
 
-3.Preprocessing the data
+#3.Preprocessing the data
 def preprocess(imgs):
     imgs = imgs.astype("float32") / 255.0
     imgs = np.pad(imgs, ((0, 0), (2, 2), (2, 2)), constant_values=0.0)
     imgs = np.expand_dims(imgs, -1)
     return imgs
 
-4. Defining hyperparameters
+#4. Defining hyperparameters
 IMAGE_SIZE = 32
 BATCH_SIZE = 100
 VALIDATION_SPLIT = 0.2
@@ -43,7 +43,7 @@ class Sampling(layers.Layer):
         epsilon = K.random_normal(shape=(batch, dim))
         return z_mean + tf.exp(0.5 * z_log_var) * epsilon
 
-5. Buidling Variational Auto-encoder
+#5. Buidling Variational Auto-encoder
 #Encoder
 encoder_input = layers.Input(
     shape=(IMAGE_SIZE, IMAGE_SIZE, 1), name="encoder_input"
@@ -156,12 +156,12 @@ class VAE(models.Model):
             "kl_loss": kl_loss,
         }
 
-6. Intialize the VAE and optimizer
+#6. Intialize the VAE and optimizer
 vae = VAE(encoder, decoder)
 optimizer = optimizers.Adam(learning_rate=0.0005)
 vae.compile(optimizer=optimizer)
 
-7. Training the VAE
+#7. Training the VAE
 model_checkpoint_callback = callbacks.ModelCheckpoint(
     filepath="./checkpoint.keras",
     save_weights_only=False,
@@ -186,7 +186,7 @@ vae.save("./models/vae.keras")
 encoder.save("./models/encoder.keras")
 decoder.save("./models/decoder.keras")
 
-8. Reconstructing the images and visualizing the latent space
+#8. Reconstructing the images and visualizing the latent space
 n_to_predict = 5000
 example_images = x_test[:n_to_predict]
 example_labels = y_test[:n_to_predict]
